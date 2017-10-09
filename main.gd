@@ -7,7 +7,6 @@ onready var entry = get_node("entry")
 onready var condorse = get_node("condorse")
 onready var copeland = get_node("copeland")
 onready var simpson = get_node("simpson")
-onready var num_candidates = get_node("num_candidates")
 onready var num_votes = get_node("num_votes")
 onready var protocol = get_node("protocol")
 
@@ -16,8 +15,7 @@ enum METHOD {
 	METHOD_COPELAND
 	METHOD_SIMPSON
 }
-
-var candidates = 3
+var candidates = 0
 var message_log = ""
 var root
 var votes = {}
@@ -34,7 +32,7 @@ func _ready():
 	root = table.create_item()
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("enter"):
 		# Enter is pressed, add rank
 		add_rank()
 		show()
@@ -57,20 +55,30 @@ func _on_remove_pressed():
 func add_rank():
 	# Adds a rank to the table
 	# If rank exists, it will increase number of votes for that rank
-	var rank = entry.text
+	var rank = Array(entry.text.split(" "))
 	if votes.has(rank):
 		votes[rank] += int(num_votes.text)
 	else:
 		votes[rank] = 0
 		votes[rank] += int(num_votes.text)
+		
+	# Compute number of candidates automatically
+	candidates = 0
+	for rank in votes.keys():
+		candidates = max(candidates, rank.size())
 	
 func remove_rank():
 	# Removes a rank from the table
-	var rank = entry.text
+	var rank = Array(entry.text.split(" "))
 	if votes.has(rank):
 		votes[rank] -= int(num_votes.text)
 		if votes[rank] <= 0:
 			votes.erase(rank)
+			
+	# Compute number of candidates automatically
+	candidates = 0
+	for rank in votes.keys():
+		candidates = max(candidates, rank.size())
 		
 func show():
 	# Clear table
@@ -81,7 +89,8 @@ func show():
 	for rank in votes.keys():
 		var item = table.create_item(root)
 		item.set_text(0, str(votes[rank]))
-		item.set_text(1, rank)
+		var string = String(rank)
+		item.set_text(1, string)
 		
 	table.grab_focus()
 		
