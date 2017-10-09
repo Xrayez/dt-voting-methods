@@ -4,14 +4,14 @@ onready var panel = get_node("panel")
 onready var table = get_node("table")
 onready var add = get_node("add")
 onready var entry = get_node("entry")
-onready var condorse = get_node("condorse")
+onready var condorcet = get_node("condorcet")
 onready var copeland = get_node("copeland")
 onready var simpson = get_node("simpson")
 onready var num_votes = get_node("num_votes")
 onready var protocol = get_node("protocol")
 
 enum METHOD {
-	METHOD_CONDORSE
+	METHOD_CONDORCET
 	METHOD_COPELAND
 	METHOD_SIMPSON
 }
@@ -21,7 +21,7 @@ var root
 var votes = {}
 
 func _ready():
-	condorse.pressed = true
+	condorcet.pressed = true
 	# Set up table parameters
 	table.set_hide_root(true)
 	table.set_column_titles_visible(true)
@@ -33,8 +33,10 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("enter"):
-		# Enter is pressed, add rank
 		add_rank()
+		show()
+	if event.is_action_pressed("delete"):
+		remove_rank()
 		show()
 
 func _on_num_candidates_text_changed( text ):
@@ -92,9 +94,9 @@ func show():
 		var string = String(rank)
 		item.set_text(1, string)
 		
-	table.grab_focus()
+	entry.grab_focus()
 		
-func determine_winner(method = METHOD_CONDORSE):
+func determine_winner(method = METHOD_CONDOCET):
 	# Init opponents matrix
 	var opponents = []
 	for j in range(candidates):
@@ -118,18 +120,18 @@ func determine_winner(method = METHOD_CONDORSE):
 		score[a] = 0
 		
 	#------------------
-	# Condorse method
+	# Condorcet method
 	#------------------
-	if method == METHOD_CONDORSE:
+	if method == METHOD_CONDORCET:
 		for j in range(candidates):
 			for i in range(candidates):
 				if j == i: continue
 				if opponents[j][i] > opponents[i][j]:
 					score[j] += 1
 			if score[j] == candidates - 1:
-				message_log += "Condorse winner is " + str(j + 1) + "\n"
+				message_log += "Condorcet winner is " + str(j + 1) + "\n"
 				return
-		message_log += "There is no Condorse winner\n"
+		message_log += "There is no Condorcet winner\n"
 	#------------------
 	# Copeland method
 	#------------------
@@ -168,10 +170,10 @@ func determine_winner(method = METHOD_CONDORSE):
 		return
 
 func _on_calc_pressed():
-	if not (condorse.pressed or copeland.pressed or simpson.pressed):
+	if not (condorcet.pressed or copeland.pressed or simpson.pressed):
 		message_log += "Please select the method above" + "\n"
-	if condorse.pressed:
-		determine_winner(METHOD_CONDORSE)
+	if condorcet.pressed:
+		determine_winner(METHOD_CONDORCET)
 	if copeland.pressed:
 		determine_winner(METHOD_COPELAND)
 	if simpson.pressed:

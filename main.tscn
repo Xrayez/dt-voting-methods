@@ -61,6 +61,53 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
+[node name="num_votes" type="LineEdit" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 11.0
+margin_top = 558.0
+margin_right = 97.0
+margin_bottom = 591.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+text = "1"
+expand_to_len = false
+focus_mode = 2
+placeholder_text = "Votes"
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+_sections_unfolded = [ "Placeholder", "Rect" ]
+
+[node name="entry" type="LineEdit" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 107.0
+margin_top = 558.0
+margin_right = 303.0
+margin_bottom = 591.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+expand_to_len = false
+focus_mode = 2
+placeholder_text = "Rank (space-separated)"
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+_sections_unfolded = [ "Placeholder", "Rect" ]
+
 [node name="add" type="Button" parent="."]
 
 anchor_left = 0.0
@@ -105,78 +152,92 @@ group = null
 text = "Remove"
 flat = false
 
-[node name="calc" type="Button" parent="."]
+[node name="condorcet" type="CheckBox" parent="."]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 528.0
-margin_top = 112.0
-margin_right = 695.0
-margin_bottom = 149.0
+margin_left = 523.0
+margin_top = 9.0
+margin_right = 549.0
+margin_bottom = 41.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
+toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "Determine winner"
 flat = false
+align = 0
 
-[node name="entry" type="LineEdit" parent="."]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 107.0
-margin_top = 558.0
-margin_right = 303.0
-margin_bottom = 591.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-expand_to_len = false
-focus_mode = 2
-placeholder_text = "Candidate rank"
-placeholder_alpha = 0.6
-caret_blink = false
-caret_blink_speed = 0.65
-_sections_unfolded = [ "Placeholder", "Rect" ]
-
-[node name="num_votes" type="LineEdit" parent="."]
+[node name="label" type="Label" parent="condorcet"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 11.0
-margin_top = 558.0
-margin_right = 97.0
-margin_bottom = 591.0
+margin_left = 28.0
+margin_top = 4.0
+margin_right = 158.0
+margin_bottom = 27.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Condorcet method"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="copeland" type="CheckBox" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 523.0
+margin_top = 43.0
+margin_right = 549.0
+margin_bottom = 75.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-text = "1"
-expand_to_len = false
-focus_mode = 2
-placeholder_text = "Votes"
-placeholder_alpha = 0.6
-caret_blink = false
-caret_blink_speed = 0.65
-_sections_unfolded = [ "Placeholder", "Rect" ]
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 0
+
+[node name="label" type="Label" parent="copeland"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_top = 4.0
+margin_right = 164.0
+margin_bottom = 27.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Copeland method"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="simpson" type="CheckBox" parent="."]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -204,95 +265,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 28.0
-margin_top = -64.0
-margin_right = 142.0
-margin_bottom = -50.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Condorse method"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="copeland" type="CheckBox" parent="."]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 523.0
-margin_top = 43.0
-margin_right = 549.0
-margin_bottom = 66.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 0
-
-[node name="label" type="Label" parent="copeland"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 28.0
 margin_top = 4.0
-margin_right = 141.0
-margin_bottom = 18.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Copeland method"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="condorse" type="CheckBox" parent="."]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 523.0
-margin_top = 9.0
-margin_right = 549.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = true
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 0
-
-[node name="label" type="Label" parent="condorse"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 28.0
-margin_top = 72.0
-margin_right = 137.0
-margin_bottom = 86.0
+margin_right = 158.0
+margin_bottom = 53.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -302,6 +277,28 @@ text = "Simpson method"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="calc" type="Button" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 528.0
+margin_top = 112.0
+margin_right = 695.0
+margin_bottom = 149.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Determine winner"
+flat = false
 
 [node name="protocol" type="TextEdit" parent="."]
 
@@ -327,6 +324,26 @@ caret_block_mode = false
 caret_blink = false
 caret_blink_speed = 0.65
 _sections_unfolded = [ "Rect" ]
+
+[node name="Label" type="Label" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 728.0
+margin_top = 569.0
+margin_right = 1020.0
+margin_bottom = 592.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Copyright (C) 2017 Andrii Doroshenko"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="pressed" from="add" to="." method="_on_add_pressed"]
 
