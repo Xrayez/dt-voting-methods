@@ -154,6 +154,7 @@ flat = false
 
 [node name="condorcet" type="CheckBox" parent="."]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -196,6 +197,7 @@ max_lines_visible = -1
 
 [node name="copeland" type="CheckBox" parent="."]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -238,6 +240,7 @@ max_lines_visible = -1
 
 [node name="simpson" type="CheckBox" parent="."]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -344,6 +347,8 @@ text = "Copyright (C) 2017 Andrii Doroshenko"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[connection signal="item_selected" from="table" to="." method="_on_table_item_selected"]
 
 [connection signal="pressed" from="add" to="." method="_on_add_pressed"]
 

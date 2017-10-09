@@ -182,3 +182,9 @@ func _on_calc_pressed():
 	protocol.set_text(message_log)
 	message_log += "\n"
 	protocol.cursor_set_line(protocol.get_line_count())
+
+
+func _on_table_item_selected():
+	var item = table.get_selected()
+	num_votes.text = item.get_text(0).replace("[", "").replace("]", "").replace(",", "")
+	entry.text = item.get_text(1).replace("[", "").replace("]", "").replace(",", "")
