@@ -39,21 +39,14 @@ func _input(event):
 		remove_rank()
 		show()
 
-func _on_num_candidates_text_changed( text ):
-	# Sets number of candidates
-	candidates = int(text)
-	message_log += "Number of candidates changed to " + text + "\n"
-	protocol.set_text(message_log)
-	protocol.cursor_set_line(protocol.get_line_count())
-
 func _on_add_pressed():
 	add_rank()
 	show()
-	
+
 func _on_remove_pressed():
 	remove_rank()
 	show()
-	
+
 func add_rank():
 	# Adds a rank to the table
 	# If rank exists, it will increase number of votes for that rank
@@ -63,12 +56,12 @@ func add_rank():
 	else:
 		votes[rank] = 0
 		votes[rank] += int(num_votes.text)
-		
+
 	# Compute number of candidates automatically
 	candidates = 0
 	for rank in votes.keys():
 		candidates = max(candidates, rank.size())
-	
+
 func remove_rank():
 	# Removes a rank from the table
 	var rank = Array(entry.text.split(" "))
@@ -76,26 +69,26 @@ func remove_rank():
 		votes[rank] -= int(num_votes.text)
 		if votes[rank] <= 0:
 			votes.erase(rank)
-			
+
 	# Compute number of candidates automatically
 	candidates = 0
 	for rank in votes.keys():
 		candidates = max(candidates, rank.size())
-		
+
 func show():
 	# Clear table
 	while root.get_children() != null:
 		root.remove_child(root.get_children())
-		
+
 	# Fill table
 	for rank in votes.keys():
 		var item = table.create_item(root)
 		item.set_text(0, str(votes[rank]))
 		var string = String(rank)
 		item.set_text(1, string)
-		
+
 	entry.grab_focus()
-		
+
 func determine_winner(method = METHOD_CONDOCET):
 	# Init opponents matrix
 	var opponents = []
@@ -103,7 +96,7 @@ func determine_winner(method = METHOD_CONDOCET):
 		opponents.append([])
 		for i in range(candidates):
 			opponents[j].append(0)
-			
+
 	# Sum up total number of votes for each candidate pair
 	for j in range(candidates):
 		for i in range(candidates):
@@ -112,16 +105,16 @@ func determine_winner(method = METHOD_CONDOCET):
 				var a = rank.find(str(j + 1))
 				var b = rank.find(str(i + 1))
 				if a < b: opponents[j][i] = votes[rank]
-	
+
 	# Init score for each candidate
 	var score = []
 	score.resize(candidates)
 	for a in range(candidates):
 		score[a] = 0
-		
-	#------------------
+
+	#----------------------------
 	# Condorcet method
-	#------------------
+	#----------------------------
 	if method == METHOD_CONDORCET:
 		for j in range(candidates):
 			for i in range(candidates):
@@ -132,9 +125,9 @@ func determine_winner(method = METHOD_CONDOCET):
 				message_log += "Condorcet winner is " + str(j + 1) + "\n"
 				return
 		message_log += "There is no Condorcet winner\n"
-	#------------------
+	#---------------------------
 	# Copeland method
-	#------------------
+	#---------------------------
 	elif method == METHOD_COPELAND:
 		for j in range(candidates):
 			for i in range(candidates):
@@ -149,9 +142,9 @@ func determine_winner(method = METHOD_CONDOCET):
 		var winner = score.find(max_score)
 		message_log += "Copeland winner is " + str(winner + 1) + "\n"
 		return
-	#------------------
-	# Simpson method
-	#------------------
+	#----------------------------
+	# Simpson (Minimax) method
+	#----------------------------
 	elif method == METHOD_SIMPSON:
 		for j in range(candidates):
 			var total_votes = []
@@ -178,7 +171,7 @@ func _on_calc_pressed():
 		determine_winner(METHOD_COPELAND)
 	if simpson.pressed:
 		determine_winner(METHOD_SIMPSON)
-		
+
 	protocol.set_text(message_log)
 	message_log += "\n"
 	protocol.cursor_set_line(protocol.get_line_count())
@@ -186,5 +179,5 @@ func _on_calc_pressed():
 
 func _on_table_item_selected():
 	var item = table.get_selected()
-	num_votes.text = item.get_text(0).replace("[", "").replace("]", "").replace(",", "")
+	num_votes.text = item.get_text(0)
 	entry.text = item.get_text(1).replace("[", "").replace("]", "").replace(",", "")
